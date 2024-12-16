@@ -1,30 +1,25 @@
 class Solution {
     public int romanToInt(String s) {
-        
-        s = s.replaceAll("IV", "IIII");
-        s = s.replaceAll("IX", "IIIIIIIII");
-        s = s.replaceAll("XL", "XXXX");
-        s = s.replaceAll("XC", "LXXXX");
-        s = s.replaceAll("CD", "CCCC");
-        s = s.replaceAll("CM", "DCCCC");
-        System.out.println(s);
+        Map<Character, Integer> roman = new HashMap<>();
+        roman.put('I', 1);
+        roman.put('V', 5);
+        roman.put('X', 10);
+        roman.put('L', 50);
+        roman.put('C', 100);
+        roman.put('D', 500);
+        roman.put('M', 1000);
         int sum = 0;
-        for (int i = 0; i < s.length(); i++)
+        for (int i = 0; i < s.length() - 1; i++)
         {
-            char num = s.charAt(i);
-            switch (num)
+            if (roman.get(s.charAt(i)) < roman.get(s.charAt(i + 1)))
             {
-                case 'I' -> sum += 1;
-                case 'V' -> sum += 5;
-                case 'X' -> sum += 10;
-                case 'L' -> sum += 50;
-                case 'C' -> sum += 100;
-                case 'D' -> sum += 500;
-                case 'M' -> sum += 1000;
-                default -> sum += 0;
+                sum -= roman.get(s.charAt(i));
             }
-
+            else
+            {
+                sum += roman.get(s.charAt(i));
+            }
         }
-        return sum;
+        return sum + roman.get(s.charAt(s.length() - 1));
     }
 }
