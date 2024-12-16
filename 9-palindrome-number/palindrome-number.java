@@ -2,18 +2,16 @@ class Solution {
     public boolean isPalindrome(int x) {
         if (x < 0) return false;
         if (x <= 9) return true;
-        String number = String.valueOf(x);
-        int i = 0;
-        int j = number.length() - 1; 
-        while (i < j)
+        
+        long rev = 0;
+        long t = x;
+        while (t != 0)
         {
-            if (!(number.charAt(i) == number.charAt(j)))
-            {
-                return false;
-            }
-            i += 1;
-            j -= 1;
+            int digit = (int) t % 10; // last digit
+            rev = rev * 10 + digit; // reversing the number
+            t /= 10;
         }
-        return true;
+
+        return rev == x;
     }
 }
