@@ -6,35 +6,26 @@ class Solution {
         // -- prefix means: it must start from the beginning of the word
         // -- each word must start with the prefix
 
-        String ret = "";
-        int s = 1;
-        boolean canAdd = true;
-        for (int i = 0; i < strs[0].length(); i++)
+        Arrays.sort(strs);
+        int index = 0;
+        String s = strs[index];
+        String e = strs[strs.length - 1];
+
+        while (index < s.length() && index < e.length())
         {
-            String substr = strs[0].substring(0, s);
-            for (int j = 1; j < strs.length; j++)
+            char sc = s.charAt(index);
+            char ec = e.charAt(index);
+            if (sc == ec)
             {
-                if (substr.length() > strs[j].length()){
-                    canAdd = false;
-                    break;
-                }
-                String innerSub = strs[j].substring(0, s);
-                if (!innerSub.equals(substr))
-                {
-                    canAdd = false;
-                }
+                index += 1;
             }
-            
-            if (canAdd == false)
+            else
             {
                 break;
             }
-
-            s += 1;
-            ret = substr;
         }
 
         // output: a prefix common to all strings in the array or empty string if no common prefix
-        return ret;
+        return s.substring(0, index);
     }
 }
